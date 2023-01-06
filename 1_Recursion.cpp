@@ -2,9 +2,12 @@
 using namespace std;
 
 void func(int n) {
-    printf("%d ",n);
-    if(n>0)
+   
+    if(n>0) {
+        printf("%d ",n);
         func(n-1);
+    }
+        
 }
 
 int main()
