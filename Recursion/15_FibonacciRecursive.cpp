@@ -10,10 +10,8 @@ int rfib(int n) {
 
 int main()
 {
-    for(int i=0;i<10;i++) {
-        F[i] = -1;
-    }
+    
     int n = 5;
-    cout << mfib(n);
+    cout << rfib(n);
     return 0;
 }
