@@ -16,7 +16,7 @@ int main()
     C = new int*[3];
     C[0] = new int[4];
     C[1] = new int[4];
-    C[1] = new int[4];
+    C[2] = new int[4];
 
     //dynamic memory allocation C style
     int *D[3];
