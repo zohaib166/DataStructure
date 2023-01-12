@@ -4,9 +4,20 @@
 
 typedef struct _List {
 	int arr[20];
-	int capacity;
+	int capacity = 20;
 	int size;
 } List;
+
+void fillArray(List *num, int length) {
+	if(length > num->capacity) {
+		printf("Out of bound error\n");
+		return;
+	}
+	num->size = length;
+	for(int i=0;i<num->size;i++) {
+		scanf("%d", &num->arr[i]);
+	}
+}
 
 void display(List a) {
 	for(int i=0;i<a.size;i++) {
@@ -76,6 +87,75 @@ int binary_search_iter(List *ptr, int value) {
 	return -1;
 }
 
+void shift(List *ptr, char direction) {
+	if(direction=='l' || direction=='L') {
+		for(int i=1; i<ptr->size; i++) {
+			ptr->arr[i-1] = ptr->arr[i];
+		}
+		ptr->arr[ptr->size-1] = 0;
+	} else {
+		for(int i=ptr->size-1; i>0; i--) {
+			ptr->arr[i] = ptr->arr[i-1];
+		}
+		ptr->arr[0] = 0;
+	}
+}
+
+void rotate(List *ptr, char direction) {
+	if(direction=='l' || direction=='L') {
+		int temp = ptr->arr[0];
+		for(int i=1; i<ptr->size; i++) {
+			ptr->arr[i-1] = ptr->arr[i];
+		}
+		ptr->arr[ptr->size-1] = temp;
+	} else {
+		int temp = ptr->arr[ptr->size-1];
+		for(int i=ptr->size-1; i>0; i--) {
+			ptr->arr[i] = ptr->arr[i-1];
+		}
+		ptr->arr[0] = temp;
+	}
+}
+
+void swap(int *x, int *y) {
+	int temp;
+	temp = *x;
+	*x = *y;
+	*y = temp;
+}
+
+int sum(List num) {
+	int sum=0;
+	for(int i=0;i<num.size;i++) {
+		sum += num.arr[i];
+	}
+	return sum;
+}
+
+int max(List num) {
+	int max = num.arr[0];
+	for(int i=1;i<num.size;i++) {
+		if(max<num.arr[i]) {
+			max = num.arr[i];
+		}
+	}
+	return max;
+}
+
+int min(List num) {
+	int min = num.arr[0];
+	for(int i=1;i<num.size;i++) {
+		if(min>num.arr[i]) {
+			min = num.arr[i];
+		}
+	}
+	return min;
+}
+
+double avg(List num) {
+	return sum(num)/(double)num.size;
+}
+
 int binary_search_recur(List *ptr, int low, int high, int value) {
 	int mid; ;
 	if(low<=high) {
@@ -91,18 +171,54 @@ int binary_search_recur(List *ptr, int low, int high, int value) {
 	return -1;
 }
 
+void reverse(List *ptr) {
+	int i=0, j=ptr->size-1;
+	while(i<j) {
+		swap(&ptr->arr[i], &ptr->arr[j]);
+		i++, j--;
+	}
+}
+
+void insert_sorted(List *ptr, int value) {
+	int i;
+	for(i=ptr->size-1; ptr->arr[i]>value; i--) {
+		ptr->arr[i+1] = ptr->arr[i];
+	}
+	i++;
+	ptr->arr[i] = value;
+	ptr->size++;
+} 
+
+int is_sorted(List num) {
+	for(int i=1; i<num.size; i++) {
+		if(num.arr[i-1] > num.arr[i]) {
+			return 0;
+		}
+	}
+	return 1;
+}
+
+void arrange_neg_pos(List *ptr) {
+	int i = 0, j = ptr->size-1;
+	while(i<j) {
+		while(ptr->arr[i]<0) {i++;}
+		while(ptr->arr[j]>0) {j--;}
+		if(i<j) {
+			swap(&ptr->arr[i], &ptr->arr[j]);
+		}
+	}
+}
+
 int main() {
-	List num = {{2,4,7,9,10,14,16,18,19,23,35,38,41,67,89},20,15};
+	//List num = {{2,4,7,9,10,14,16,18,19,23,35,38,41,67,89},20,15};
+
+	List num = {{-1, 3, 4, -6, 7, -7},20,6};
+
 	// printf("Enter the size of the List: ");
-	// scanf("%d", &num.size); 
-	// if(num.size>num.capacity) {
-	// 	printf("Out of bound error\n");
-	// 	return 1;
-	// }
-	// printf("Enter %d integers: \n", num.size);
-	// for(int i=0;i<num.size;i++) {
-	// 	scanf("%d", &num.arr[i]);
-	// }
+	// int length;
+	// scanf("%d", &length); 
+	// printf("Enter the %d elements: \n", length);
+	// fillArray(&num, length);
 	
 	display(num);
 	// append(&num, 7);
@@ -117,6 +233,22 @@ int main() {
 	// printf("%d", linear_search(&num, 2));
 	// printf("%d", binary_search_iter(&num, 7));
 
-	printf("%d", binary_search_recur(&num, 0, num.size-1, 19));
+	// printf("%d", binary_search_recur(&num, 0, num.size-1, 19));
+
+	// printf("%.2lf", avg(num));
+	// reverse(&num);
+
+	// shift(&num, 'r');
+	// rotate(&num, 'l');
+	// insert_sorted(&num, 20);
+	// if(is_sorted(num)==1) {
+	// 	printf("List is sorted");
+	// } else {
+	// 	printf("List is not sorted");
+	// }
+
+	arrange_neg_pos(&num);
+	
+	display(num);
 	return 0;
 }
