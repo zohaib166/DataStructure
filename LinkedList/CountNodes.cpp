@@ -1,5 +1,5 @@
-#include<iostream>
-using namespace std;
+#include <cstdio>
+#include <cstdlib>
 
 typedef struct _node
 {
@@ -25,36 +25,20 @@ void create(int A[], int n) {
     }
 }
 
-//recursive traversal
-void display_recur(Node *t) {
-    if(t!=NULL) {
-        printf("%d ", t->data);
-        display_recur(t->next);
-    }
-}
-
-//reverse traversal (recursive)
-void reverse_display_recur(Node *t) {
-    if(t!=NULL) {
-        reverse_display_recur(t->next);
-        printf("%d ", t->data);
-    }
-}
-
-//Iterative traversal
-void display_iter(Node *t) {
+int countNodes(Node *head) {
+    Node *t = head;
+    int count=0;
     while(t!=NULL) {
-        printf("%d ", t->data);
-        t = t -> next;
+        count++;
+        t=t->next;
     }
+    return count;
 }
 
 int main()
 {
     int A[10] = {2,3,4,5,6};
     create(A,5);
-    //display_iter(head);
-    //display_recur(head);
-    reverse_display_recur(head);
+    printf("%d ", countNodes(head));
     return 0;
 }
