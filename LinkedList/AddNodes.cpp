@@ -25,8 +25,7 @@ void create(int A[], int n) {
     }
 }
 
-int addNodes(Node *head) {
-    Node *t = head;
+int addNodes(Node *t) {
     int sum=0;
     while(t!=NULL) {
         sum+=t->data;
@@ -35,10 +34,19 @@ int addNodes(Node *head) {
     return sum;
 }
 
+int rAddNodes(Node *t) {
+    if(t!=NULL) {
+        return rAddNodes(t->next) + t->data;
+    } else {
+        return 0;
+    }
+}
+
 int main()
 {
     int A[10] = {2,3,4,5,6};
     create(A,5);
-    printf("%d ", addNodes(head));
+    //printf("%d ", addNodes(head));
+    printf("%d ", rAddNodes(head));
     return 0;
 }

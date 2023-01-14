@@ -25,8 +25,8 @@ void create(int A[], int n) {
     }
 }
 
-int countNodes(Node *head) {
-    Node *t = head;
+int countNodes(Node *t) {
+
     int count=0;
     while(t!=NULL) {
         count++;
@@ -35,10 +35,18 @@ int countNodes(Node *head) {
     return count;
 }
 
+int rCountNodes(Node *head) {
+    Node *t = head;
+    if(t!=NULL)
+        return rCountNodes(t->next) + 1;
+    else 
+        return 0;
+}
+
 int main()
 {
     int A[10] = {2,3,4,5,6};
     create(A,5);
-    printf("%d ", countNodes(head));
+    printf("%d ", rCountNodes(head));
     return 0;
 }

@@ -26,9 +26,8 @@ void create(int A[], int n) {
     }
 }
 
-int findMax(Node *head) {
-    Node *t = head;
-    int max = head->data;
+int findMax(Node *t) {
+    int max = t->data;
     t = t->next;
     while(t!=NULL) {
         if(t->data > max) {
@@ -40,9 +39,19 @@ int findMax(Node *head) {
     return max;
 }
 
-int findMin(Node *head) {
-    Node *t = head;
-    int min = head->data;
+int rFindMax(Node *t) {
+    int x = 0;
+    if(t==NULL) {
+        return INT_MIN;
+    }
+    x = rFindMax(t->next);
+    if(x > t->data) {
+        return x;
+    } else return t->data;
+}
+
+int findMin(Node *t) {
+    int min = t->data;
     while(t!=NULL) {
         if(t->data <= min) {
             min = t->data;
@@ -53,11 +62,24 @@ int findMin(Node *head) {
     return min;
 }
 
+int rFindMin(Node *t) {
+    int x = 0;
+    if(t==NULL) {
+        return INT_MAX;
+    }
+    x = rFindMin(t->next);
+    if(x < t->data) {
+        return x;
+    } else return t->data;
+}
+
 int main()
 {
-    int A[10] = {2,3,4,5,6};
+    int A[10] = {12,3,14,5,6};
     create(A,5);
     //printf("%d ", findMax(head));
-    printf("%d ", findMin(head));
+    //printf("%d ", findMin(head));
+    //printf("%d ", rFindMax(head));
+    printf("%d ", rFindMin(head));
     return 0;
 }
