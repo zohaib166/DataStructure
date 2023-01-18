@@ -25,6 +25,15 @@ void create(int A[], int n) {
     }
 }
 
+int countNodes(Node *t) {
+    int count=0;
+    while(t!=NULL) {
+        count++;
+        t=t->next;
+    }
+    return count;
+}
+
 //Reverse Linked List using sliding pointers r q and p
 void reverseLinkedList(Node *p) {
     Node *q=NULL, *r=NULL;
@@ -47,6 +56,24 @@ void reverseLL_recur(Node *q, Node *p) {
     }
 }
 
+//Reversing the contents in a linked list using array
+void reverseLLContent(Node *p) {
+    int *A, i=0;
+    A = (int *) malloc (countNodes(p)*sizeof(Node));
+    while(p) {
+        A[i]=p->data;
+        p=p->next;
+        i++;
+    }
+    Node *q = head;
+    i--;
+    while(q!=NULL) {
+        q->data = A[i];
+        q = q->next;
+        i--;
+    }
+}
+
 void display(Node *t) {
     while(t!=NULL) {
         printf("%d ", t->data);
@@ -57,12 +84,13 @@ void display(Node *t) {
 
 int main()
 {
+    Node *q = NULL;
     int A[10] = {2,3,4,5,6};
     create(A,5);
     display(head);
     //reverseLinkedList(head);
-    Node *q = NULL;
-    reverseLL_recur(q, head);
+    //reverseLL_recur(q, head);
+    reverseLLContent(head);
     display(head);
     return 0;
 }
