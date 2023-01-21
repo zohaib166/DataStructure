@@ -9,7 +9,7 @@ typedef struct _node
 
 Node *head = NULL;
 
-void create(int A[], int size) {
+void createCLL(int A[], int size) {
     Node *temp, *new_node;
     head = (Node*) malloc(sizeof(Node));
     temp = head;
@@ -49,7 +49,7 @@ void display_recur(Node *t) {
 int main() {
     int A[] = {3,4,5,6,7};
     int size = 5;
-    create(A, size);
+    createCLL(A, size);
     //display(head);
     display_recur(head);
 }
