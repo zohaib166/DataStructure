@@ -26,7 +26,6 @@ void create(int A[], int n) {
 }
 
 int countNodes(Node *t) {
-
     int count=0;
     while(t!=NULL) {
         count++;
