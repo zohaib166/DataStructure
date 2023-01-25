@@ -40,6 +40,12 @@ void insertCDLL(Node *p, int pos, int val) {
     new_node = (Node*) malloc(sizeof(Node));
     new_node -> data = val;
     new_node -> prev = new_node -> next = NULL;
+    if(p==NULL) {
+        new_node->prev = new_node;
+        new_node->next = new_node;
+        head = new_node;
+        return;
+    }
     if(pos == 1) {
         new_node->prev = p->prev;
         new_node->next = p;
