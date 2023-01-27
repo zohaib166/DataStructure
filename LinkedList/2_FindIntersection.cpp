@@ -52,17 +52,36 @@ void display(Node *t) {
 }
 
 int findIntersection(Node *p, Node *q) {
+    stack<int> s1, s2;
+    int common;
+    while(p) { 
+        s1.push(p->data);
+        p = p->next;
+    }
+    while(q)
+    {
+        s2.push(q->data);
+        q = q->next;
+    }
+    
+    while(s1.top()==s2.top()) {
+        common = s1.top();
+        s1.pop(); s2.pop();
+    }
 
+    return common;
 }
 
 int main()
 {
     int A[10] = {2,3,4,5,6,8,11};
     createLL1(A,7);
+    printf("First Linked List: \n");
     display(first);
     int B[3] = {12,13,14};
+    
     createLL2(B,3);
-    display(second);
+    //display(second);
     //Connect second linked list to the 4th node of first Linked List
     Node *p = first;
     for(int i=0;i<3;i++) {
@@ -73,9 +92,10 @@ int main()
         q=q->next;
     }
     q->next = p;
+    printf("Second Linked List: \n");
     display(second);
 
     //find intersection
-    printf("%d ", findIntersection(first, second));
+    printf("The linked lists intersect at %d ", findIntersection(first, second));
     return 0;
 }
