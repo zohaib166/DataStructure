@@ -1,6 +1,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <queue>
+#include <stack>
 
 using namespace std;
 
@@ -51,6 +52,14 @@ void create() {
     }
 }
 
+void inorder(Node *p) {
+    if(p) {
+        inorder(p->left);
+        printf("%d ", p->data);
+        inorder(p->right);
+    }
+}
+
 void preorder(Node *p) {
     if(p) {
         printf("%d ", p->data);
@@ -59,7 +68,66 @@ void preorder(Node *p) {
     }
 }
 
+void postorder(Node *p) {
+    if(p) {
+        postorder(p->left);
+        postorder(p->right);
+        printf("%d ", p->data);
+    }
+}
+
+void iPreorder(Node *p) {
+    stack <Node*> q;
+    while(p!=nullptr || !q.empty()) {
+        if(p!=NULL) {
+            printf("%d ", p->data);
+            q.push(p);
+            p = p->left;
+        } else {
+            p = q.top();
+            p = p->right;
+            q.pop();
+        }
+    }
+}
+
+void iInorder(Node *p) {
+    stack <Node*> q;
+    while(p!=nullptr || !q.empty()) {
+        if(p!=NULL) {
+            q.push(p);
+            p = p->left;
+        } else {
+            p = q.top();
+            printf("%d ", p->data);
+            p = p->right;
+            q.pop();
+        }
+    }
+}
+
+void iPostorder(Node *root) {
+    stack <Node*> st;
+    while (true) {
+        while (root) {
+            st.push(root);
+            st.push(root);
+            root = root->left;
+        }
+        if (st.empty())
+            return;
+        root = st.top();
+        st.pop();
+        if (!st.empty() && st.top() == root)
+            root = root->right;
+        else {
+            printf("%d ", root->data);
+            root = NULL;
+        }
+    }
+}
+
 int main() {
     create();
-    preorder(root);
+    iPostorder(root);
 }
