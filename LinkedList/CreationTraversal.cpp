@@ -33,6 +33,15 @@ void display_recur(Node *t) {
     }
 }
 
+void getReverse(Node *l, int &num) {
+    if(l==NULL) {
+        return;
+    }
+    getReverse(l->next, num);
+    num = num*10+l->data;
+}
+
+
 //reverse traversal (recursive)
 void reverse_display_recur(Node *t) {
     if(t!=NULL) {
@@ -51,10 +60,10 @@ void display_iter(Node *t) {
 
 int main()
 {
-    int A[10] = {2,3,4,5,6};
+    int A[10] = {2,3,4,5,0};
     create(A,5);
     //display_iter(head);
     //display_recur(head);
-    reverse_display_recur(head);
+    
     return 0;
 }
