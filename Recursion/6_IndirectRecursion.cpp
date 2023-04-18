@@ -1,5 +1,4 @@
-#include <iostream>
-using namespace std;
+#include <stdio.h>
 
 void func2(int n);
 void func1(int n) {
@@ -15,6 +14,6 @@ void func2(int n) {
     }
 }
 int main() {
-    func1(20);
+    func1(5);
 }
 
