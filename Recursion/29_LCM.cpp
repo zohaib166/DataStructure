@@ -1,7 +1,7 @@
 #include <cstdio>
 
-int RLCM(int a, b) {
-    
+int RLCM(int a, int b) {
+
 }
 
 int LCM(int a, int b) {
