@@ -1,7 +1,13 @@
 #include <cstdio>
 
 int RLCM(int a, int b) {
-
+    static int max = a>b?a:b;
+    if(max%b == 0 && max%a==0) {
+        return max;
+    }
+    //printf("%d--", max);
+    max++;
+    return RLCM(a,b);
 }
 
 int LCM(int a, int b) {
@@ -15,5 +21,6 @@ int LCM(int a, int b) {
     return max;
 }
 int main() {
-    printf("%d", LCM(12,34));
+    printf("%d\n", LCM(12,34));
+    printf("%d", RLCM(12,34));
 }
