@@ -11,9 +11,8 @@ int main()
     fp = fopen("data.bin", "rb");
 
     struct myType x;
-
     fread(&x, sizeof(struct myType), 1, fp);
 
     printf("%d %f %s", x.num, x.frac, x.str);
-
+    fclose(fp);
 }

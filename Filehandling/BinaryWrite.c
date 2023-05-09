@@ -16,5 +16,5 @@ int main()
     strcpy(x.str, "hello");
 
     fwrite(&x, sizeof(struct myType), 1, fp);
-
+    fclose(fp);
 }
