@@ -12,7 +12,6 @@ int main()
 
     struct myType x;
 
-    // fwrite(&x, sizeof(struct myType), 1, fp);
     fread(&x, sizeof(struct myType), 1, fp);
 
     printf("%d %f %s", x.num, x.frac, x.str);
