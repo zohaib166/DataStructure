@@ -106,23 +106,23 @@ void iInorder(Node *p) {
     }
 }
 
-void iPostorder(Node *root) {
+void iPostorder(Node *p) {
     stack <Node*> st;
     while (true) {
-        while (root) {
-            st.push(root);
-            st.push(root);
-            root = root->left;
+        while (p) {
+            st.push(p);
+            st.push(p);
+            p = p->left;
         }
         if (st.empty())
             return;
-        root = st.top();
+        p = st.top();
         st.pop();
-        if (!st.empty() && st.top() == root)
-            root = root->right;
+        if (!st.empty() && st.top() == p)
+            p = p->right;
         else {
-            printf("%d ", root->data);
-            root = NULL;
+            printf("%d ", p->data);
+            p = NULL;
         }
     }
 }
