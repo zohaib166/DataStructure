@@ -69,9 +69,8 @@ int countLeaf(Node *p) {
         y = countLeaf(p->right);
         if(p->left==NULL && p->right==NULL) {
             return x+y+1;
-        } else {
+        } else 
             return x+y;
-        }
     }
     return 0;
 }
@@ -111,7 +110,6 @@ int countDeg1(Node *p) {
     if(p) {
         x = countInternal(p->left);
         y = countInternal(p->right);
-        //p->left && !p->right || p->right && !p-left
         if(p->left !=NULL ^ p->right!=NULL) {
             return x+y+1;
         } else {
@@ -138,10 +136,11 @@ int height(Node *p) {
 
 int main() {
     create();
+    cout << countInternal(root) << endl;
     //cout << countNodes(root) << endl;
     //cout << height(root) << endl;
     //cout << countLeaf(root) << endl;
     //cout << countDeg2(root) << endl;
-    cout << countDeg1(root) << endl;
+    //cout << countDeg1(root) << endl;
 
 }
