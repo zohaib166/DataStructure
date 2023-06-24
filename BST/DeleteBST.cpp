@@ -51,11 +51,8 @@ int height(Node *p) {
     if(p==NULL) return NULL;
     int x,y;
     x = height(p->left);
-
     y = height(p->right);
-
     return x>y?x+1:y+1;
-    
 }
 
 Node * InPre(Node *p) {
