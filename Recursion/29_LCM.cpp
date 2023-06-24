@@ -5,7 +5,6 @@ int RLCM(int a, int b) {
     if(max%b == 0 && max%a==0) {
         return max;
     }
-    //printf("%d--", max);
     max++;
     return RLCM(a,b);
 }

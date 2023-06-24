@@ -9,6 +9,14 @@ void printEven(int a, int b) {
     }
 }
 
+// void printEven(int a, int b) {
+//     if(a>b) {
+//         return;
+//     } 
+//     if(a%2==0) printf("%d ", a);
+//     printEven(a+1,b);
+// }
+
 void printOdd(int a, int b) {
     if(a>b) {
         return;

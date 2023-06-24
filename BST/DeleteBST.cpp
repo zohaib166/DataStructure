@@ -38,13 +38,65 @@ Node *search(Node *p, int key) {
     return NULL;
 }
 
-
 void inorder(Node *p) {
+
     if(p!=NULL) {
         inorder(p->left);
         printf("%d ", p->data);
         inorder(p->right);
     }
+}
+
+int height(Node *p) {
+    if(p==NULL) return NULL;
+    int x,y;
+    x = height(p->left);
+
+    y = height(p->right);
+
+    return x>y?x+1:y+1;
+    
+}
+
+Node * InPre(Node *p) {
+    while(p && p->right) {
+        p = p->right;
+    }
+    return p;
+}
+
+Node * InSucc(Node *p) {
+    while(p && p->left) {
+        p = p->left;
+    }
+    return p;
+}
+
+Node *deleteNode(Node *p, int key) {
+    Node *q = NULL;
+    
+    if(p==NULL) return NULL;
+    if(p->left==NULL && p->right==NULL) {
+        free(p);
+        return NULL;
+    }
+    if(key < p->data) {
+        p->left = deleteNode(p->left, key);
+    } else if(key > p->data) {
+        p->right = deleteNode(p->right, key);
+    } else {
+        if(height(p->left) > height(p->right)) {
+            q = InPre(p->left);
+            p->data = q->data;
+            p->left = deleteNode(p->left, q->data);
+        } else {
+            q = InSucc(p->right);
+            p->data = q->data;
+            p->right = deleteNode(p->right, q->data);
+        }
+    }
+
+    return p;
 }
 
 int main()
@@ -55,6 +107,11 @@ int main()
     insert(root, 35);
     insert(root, 12);
     insert(root, 40);
+    inorder(root);
+
+    deleteNode(root, 35);
+
+    printf("\n");
     inorder(root);
 
     if(search(root, 40) != NULL) {
