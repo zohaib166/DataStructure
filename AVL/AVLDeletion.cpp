@@ -130,6 +130,71 @@ Node* insert(Node *t, int key) {
     return t;
 }
 
+int height(Node *p) {
+    if(p==NULL) return NULL;
+    int x,y;
+    x = height(p->left);
+    y = height(p->right);
+    return x>y?x+1:y+1;
+}
+
+Node * InPre(Node *p) {
+    while(p && p->right) {
+        p = p->right;
+    }
+    return p;
+}
+
+Node * InSucc(Node *p) {
+    while(p && p->left) {
+        p = p->left;
+    }
+    return p;
+}
+
+Node* deleteNode(Node *p, int key) {
+    Node *q = NULL;
+    
+    if(p==NULL) return NULL;
+    if(p->left==NULL && p->right==NULL) {
+        free(p);
+        return NULL;
+    }
+    if(key < p->data) {
+        p->left = deleteNode(p->left, key);
+    } else if(key > p->data) {
+        p->right = deleteNode(p->right, key);
+    } else {
+        if(height(p->left) > height(p->right)) {
+            q = InPre(p->left);
+            p->data = q->data;
+            p->left = deleteNode(p->left, q->data);
+        } else {
+            q = InSucc(p->right);
+            p->data = q->data;
+            p->right = deleteNode(p->right, q->data);
+        }
+    }
+
+    p->height = height(p);
+
+    if(balanceFactor(p)==2 && balanceFactor(p->left)==1) {
+        return LLRotation(p);
+    } else if(balanceFactor(p)==2 && balanceFactor(p->left)==-1) {
+        return LRRotation(p);
+    } else if(balanceFactor(p)==2 && balanceFactor(p->left)==0) {
+        return LLRotation(p);
+    } else if(balanceFactor(p)==-2 && balanceFactor(p->right)==-1) {
+        return RRRotation(p);
+    } else if(balanceFactor(p)==-2 && balanceFactor(p->right)==1) {
+        return RLRotation(p);
+    } else if(balanceFactor(p)==-2 && balanceFactor(p->right)==0) {
+        return RRRotation(p);
+    } 
+
+    return p;
+}
+
 void preorder(Node *p) {
     if(p!=NULL) {
         printf("%d ", p->data);
@@ -147,6 +212,11 @@ int main()
     insert(root, 28);
     insert(root, 27);
     insert(root, 5);
+
+    preorder(root);
+
+    root = deleteNode(root, 28);
+    printf("\n");
 
     preorder(root);
 
