@@ -175,7 +175,7 @@ Node* deleteNode(Node *p, int key) {
             p->right = deleteNode(p->right, q->data);
         }
     }
-
+    //update height of node
     p->height = height(p);
 
     if(balanceFactor(p)==2 && balanceFactor(p->left)==1) {
