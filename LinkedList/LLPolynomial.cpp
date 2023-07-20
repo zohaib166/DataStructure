@@ -18,6 +18,8 @@ void create_node(Node **p, int c, int e) {
         temp = temp->link;
         temp->link = NULL;
     } else {
+        temp = *p;
+        while(temp->link) temp = temp->link;
         temp->coeff = c;
         temp->deg = e;
         temp->link = (Node*) malloc(sizeof(Node));
