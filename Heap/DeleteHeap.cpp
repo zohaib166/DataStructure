@@ -1,3 +1,13 @@
+/**
+ * @file DeleteHeap.cpp
+ * @author Zohaib Hasan
+ * @brief This code deletes from a heap and in turn performs heap sort
+ * @version 0.1
+ * @date 2023-07-24
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #include <cstdio>
 
 void swap(int *x, int *y) {
@@ -7,10 +17,15 @@ void swap(int *x, int *y) {
 }
 int deleteHeap(int A[], int n) {
     int i = 1,j;
+    int val = A[1];
     int temp = A[n];
     A[1] = A[n];
     j = 2*i;
-    while(j<n) {
+
+    //Storing elements to be deleted at the last 
+    A[n] = val;
+    
+    while(j<n-1) {
         if(A[j]<A[j+1]) {
             j++;
         }
@@ -21,8 +36,8 @@ int deleteHeap(int A[], int n) {
         } else 
             break;
     }
-    A[n] = temp;
-    return n-1;
+    
+    return val;
 }
 
 void displayHeap(int A[], int n) {
@@ -35,17 +50,13 @@ void displayHeap(int A[], int n) {
 int main() {
     int A[] = {0,40,20,30,10,8,25,27};
     int size=7;
-    int orig_size = size;
-    displayHeap(A, size);
-    size = deleteHeap(A, size);
-    displayHeap(A, size);
-    size = deleteHeap(A, size);
-    displayHeap(A, size);
-    size = deleteHeap(A, size);
-    displayHeap(A, size);
-    size = deleteHeap(A, size);
-    displayHeap(A, size);
-    size = deleteHeap(A, size);
-    displayHeap(A, size);
+    
+    for(int i=7; i>2;i--) {
+        deleteHeap(A,i);
+    }
+
+    for(int i=1; i<=7; i++) {
+        printf("%d ", A[i]);
+    }
 
 }
