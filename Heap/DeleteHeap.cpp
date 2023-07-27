@@ -24,7 +24,7 @@ int deleteHeap(int A[], int n) {
 
     //Storing elements to be deleted at the last 
     A[n] = val;
-    
+
     while(j<n-1) {
         if(A[j]<A[j+1]) {
             j++;
@@ -36,7 +36,6 @@ int deleteHeap(int A[], int n) {
         } else 
             break;
     }
-    
     return val;
 }
 
@@ -58,5 +57,4 @@ int main() {
     for(int i=1; i<=7; i++) {
         printf("%d ", A[i]);
     }
-
 }
