@@ -1,10 +1,10 @@
 #include <cstdio>
+#include <cmath>
 
 void heapify(int A[], int size) {
     int j;
-    for(int i = size; i > 0; i--) {
+    for(int i = ceil(size/2); i > 0; i--) {
         j = i*2;
-        if(j>size && (j+1)>size) continue;
     
         if((j+1) <= size && A[j] < A[j+1]) j++;
     
