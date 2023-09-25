@@ -58,7 +58,6 @@ int main() {
     int num1, num2;
     for(int i=0;i<strlen(expr);i++) {
         if(isdigit(expr[i])) {
-            //printf("digit: %c\n",expr[i]);
             push(&s, expr[i]-48);
         } else {
             
