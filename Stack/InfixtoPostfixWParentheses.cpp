@@ -23,18 +23,16 @@ void push(stack *s, int n) {
     s->data[s->top] = n;
 }
 
-int pop(stack *s) {
+char pop(stack *s) {
     if(s->top==-1) {
-        //cout << "stack is empty" << endl;
         return -1;
     }
 
     return s->data[s->top--];
 }
 
-int top(stack *s) {
+char top(stack *s) {
     if(s->top==-1) {
-        //cout << "\nstack is empty" << endl;
         return -1;
     }
     return s->data[s->top];
@@ -45,38 +43,34 @@ int empty(stack *s) {
     else return 0;
 }
 
-int isOperator(char x) {
-    switch (x)
-    {
-        case '+':
-        case '-':
-        case '*':
-        case '/':
-            return 1;
-        default:
-            return 0;
-    }
+int getPrecedence(char op)
+{
+	switch (op) {
+	case '+':
+	case '-':
+		return 1;
+	case '*':
+	case '/':
+		return 2;
+	case '^':
+		return 3;
+	default: 
+		return -1;
+	}
 }
 
-int getPrecedence(char x) {
-    switch(x) {
-        case '+':
-        case '-':
-            return 5;
-        case '*':
-        case '/':
-            return 7;
-        default:
-            return 0;
-    }
+int isOperator(char ch)
+{
+	return (ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '^' || ch=='(' || ch==')');
 }
 
 void infix2postfix(const char *infix, char *postfix) {
     int i=0,j=0;
     stack s;
-    init(&s, strlen(infix));
-    while(infix[i]!='\0') {
-        if((infix[i]!='(' && infix[i]!=')') && !isOperator(infix[i])) {
+    int len = strlen(infix);
+    init(&s, len);
+    for (i = 0, j = 0; i < len; i++) {
+        if(!isOperator(infix[i])) {
             postfix[j++] = infix[i];
         } else if(infix[i]=='(') {
             push(&s, infix[i]);
@@ -91,12 +85,11 @@ void infix2postfix(const char *infix, char *postfix) {
                 pop(&s);
             }
         } else if(isOperator(infix[i])) {
-            while(!empty(&s) || getPrecedence(infix[i]) <= getPrecedence(top(&s))) {
+            while(!empty(&s) && getPrecedence(infix[i]) <= getPrecedence(top(&s))) {
                 postfix[j++] = pop(&s);
             } 
             push(&s, infix[i]);
         }
-        i++;
     }
 
     while(!empty(&s)) {
@@ -106,8 +99,9 @@ void infix2postfix(const char *infix, char *postfix) {
 }
 
 int main() {
-    const char *infix = "(a+b)*c";
-    char *postfix = new char[strlen(infix)+1];
+    const char *infix = "a*(b+c)";
+    char *postfix = new char[strlen(infix)+2];
     infix2postfix(infix, postfix);
     printf("%s", postfix);
 }
+
