@@ -25,5 +25,5 @@ void DFS(int u) {
 }
 
 int main() {
-    DFS(5);
+    DFS(7);
 }
