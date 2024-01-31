@@ -35,7 +35,6 @@ bool isCycle(int V, vector<int> adj[]) {
 }
 
 int main() {
-    
     // V = 7, E = 7
     vector<int> adj[8] = {{}, {2,3}, {1,5}, {1,4,6}, {3}, {2,7}, {3,7}, {5,6}};
     bool ans = isCycle(8, adj);
