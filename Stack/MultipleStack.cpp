@@ -1,80 +1,86 @@
-#include <cstdio>
 #include <iostream>
 using namespace std;
-
 #define SIZE 10
 
-typedef struct _stack {
-    int data[SIZE];
-    int top1 = -1;
-    int top2 = SIZE;
-} stack;
+class stack {
+    public:
+    int size;
+    int top;
+    int *arr;
 
-void push1(stack *s, int n) {
-    s->top1++;
-    if(s->top1 == s->top2) {
-        cout << "Stack1 is Full" << endl;
-        return;
+    stack() {
+        top = -1;
+        this->size = SIZE;
+        arr = new int[size];
     }
-    s->data[s->top1] = n;
-}
-
-void push2(stack *s, int n) {
-    s->top2--;
-    if(s->top1 == s->top2) {
-        cout << "Stack2 is Full" << endl;
-        return;
+    
+    void push(int data) {
+        if(top==size-1) {
+            cout << "stack is full" << endl;
+            return;
+        }
+        arr[++top] = data;
     }
-    s->data[s->top2] = n;
-}
-
-int pop1(stack *s) {
-    if(s->top1==-1) {
-        cout << "stack1 is empty" << endl;
-        return -1;
+    
+    void pop() {
+        if(top==-1) {
+            cout << "stack is empty" << endl;
+            return;
+        }
+        top--;
     }
-    cout << s->data[s->top1] << " ";
-    return s->data[s->top1--];
-}
-
-int pop2(stack *s) {
-    if(s->top2==SIZE) {
-        cout << "stack2 is empty" << endl;
-        return -1;
+    
+    int gettop() {
+        if(top==-1) {
+            cout << "stack is empty" << endl;
+            return top;
+        }
+        return arr[top];
     }
-    cout << s->data[s->top2] << " ";
-    return s->data[s->top2++];
-}
+};
 
-void top1(stack *s) {
-    if(s->top1==-1) {
-        cout << "\nstack1 is empty" << endl;
-        return;
-    } 
-    cout << "\n" << s->data[s->top1] << " ";
-}
+class multistack {
+    public:
+    stack *s;
+    int count;
+    multistack(int count) {
+        this->count = count;
+        s = new stack[count];
+    }
+    
+    void push(int stacknum, int data) {
+        s[stacknum].push(data);
+    }
+    
+    void pop(int stacknum) {
+        s[stacknum].pop();
+    }
+    
+    int top(int stacknum) {
+        return s[stacknum].gettop();
+    }
+};
 
-void top2(stack *s) {
-    if(s->top2==SIZE) {
-        cout << "\nstack2 is empty" << endl;
-        return;
-    } 
-    cout << "\n" << s->data[s->top2] << " ";
-}
-
-int empty(stack *s) {
-    if(s->top1==-1 && s->top2) return 1;
-    else return 0;
-}
-
-
-int main() {
-    stack s;
-    push1(&s, 10);
-    push2(&s, 20);
-    push1(&s, 30);
-    push2(&s, 40);
-
-    pop1(&s);pop2(&s);pop1(&s);
-    top2(&s); top1(&s);
+int main()
+{
+    multistack ms(3);
+    ms.push(0,12);
+    ms.push(0,13);
+    ms.push(0,14);
+    
+    ms.push(1,15);
+    ms.push(1,24);
+    ms.push(1,45);
+    
+    ms.push(2,10);
+    ms.push(2,20);
+    ms.push(2,30);
+    
+    ms.pop(1);
+    
+    cout << ms.top(0) << endl;
+    cout << ms.top(1) << endl;
+    cout << ms.top(2) << endl;
+    
+    
 }
