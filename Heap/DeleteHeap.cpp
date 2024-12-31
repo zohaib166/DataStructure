@@ -15,6 +15,7 @@ void swap(int *x, int *y) {
     *x = *y;
     *y = temp;
 }
+
 int deleteHeap(int A[], int n) {
     int i = 1,j;
     int val = A[1];
